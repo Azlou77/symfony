@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['firstname'], message: 'There is already an account with this firstname')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -29,31 +31,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lastname = null;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
+    private Collection $articles;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Product::class)]
+    private Collection $products;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getEmail(): ?string
     {
-        return $this->firstname;
+        return $this->email;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setEmail(string $email): self
     {
-        $this->firstname = $firstname;
+        $this->email = $email;
 
         return $this;
     }
@@ -65,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->firstname;
+        return (string) $this->email;
     }
 
     /**
@@ -111,50 +119,91 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getLastname(): ?string
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
     {
-        return $this->lastname;
+        return $this->articles;
     }
 
-    public function setLastname(?string $lastname): self
+    public function addArticle(Article $article): self
     {
-        $this->lastname = $lastname;
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setAuthor($this);
+        }
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function removeArticle(Article $article): self
     {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getAuthor() === $this) {
+                $article->setAuthor(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getName(): ?string
     {
-        return $this->image;
+        return $this->name;
     }
 
-    public function setImage(?string $image): self
+    public function setName(?string $name): self
     {
-        $this->image = $image;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function isVerified(): bool
+    public function getFirstname(): ?string
     {
-        return $this->isVerified;
+        return $this->firstname;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setFirstname(?string $firstname): self
     {
-        $this->isVerified = $isVerified;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstname . " " . $this->name;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getSeller() === $this) {
+                $product->setSeller(null);
+            }
+        }
 
         return $this;
     }
