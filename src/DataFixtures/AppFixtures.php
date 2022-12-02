@@ -30,7 +30,9 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 100; $i++) {
             $product = new Product();
             $product->setTitle($this->faker->productName);
-            $product->setPrice($this->faker->randomFloat(2, 1, 1000));
+            $product->setPrice($this->faker->randomFloat(2, 1, 2000));
+            $product->setQuantity($this->faker->randomFloat(2, 1, 10));
+            $product->setSeller($this->getReference('user_' . rand(0, 9)));
             $product->setCategory($categories[array_rand($categories)]);
             $manager->persist($product);
         }

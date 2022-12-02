@@ -133,6 +133,9 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `name`, `firstname`) VAL
 (1, 'test@test.com', '[\"ROLE_USER\"]', '$2y$13$rSMcBmakx4Dqm9JbY6RVSu.NoSWQV9DdUcEkMJqeR5PvmXF3HwuU6', 'Test', 'Testeur'),
 (2, 'user@test.com', '[\"ROLE_USER\", \"ROLE_ADMIN\"]', '$2y$13$oYt5uSY0wyBBzvNKyIgPs.KeGMMNJYROmwpIeiyrqL0EMaeo6B3Q.', 'Test', 'Testing');
 
+(4, 'louis77@gmail.com', '[]', '$2y$13$d5KlRpZb8ZnbgZ9nQa5r/.sdX1dV0Wper7r7qTBEYDsUQMU5V83ye', 'Nguyen', 'Louis'),
+(5, 'test@test.com', '[]', '$2y$13$uqHkKhVGDC1dKkypqek6Lush/c1sXfcfIipVvY9uC7xEEg7U12UUC', 'Test1', 'Test1'),
+(6, 'user@test.com', '[]', '$2y$13$fbhrsXh.GrcqrQfauBi0u.jnP7sS8/jMJYwBtV2bvpa6JjnGIX89G', 'usertest', 'usertest');
 --
 -- Indexes for dumped tables
 --
