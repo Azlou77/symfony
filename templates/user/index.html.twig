@@ -37,8 +37,7 @@
             <p>Catégorie: {{ product.category.name }}</p>
             <p>Vendeur : {{ product.seller.name }} {{ product.seller.firstname }}</p>
         </section>
-            <a class="action_button" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-            <a class="action_button" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+          
         {% endfor %}
     </div>
     </div>

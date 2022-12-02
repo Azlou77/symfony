@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage
+{% endblock %}
+
+{% block body %}
+	{% for article in articles %}
+		<section>
+			<h2>{{ article.title }}</h2>
+@@ -20,7 +16,6 @@
+				</p>
+			{% endif %}
+			<div class="action_button_container">
+			</div>
+		</section>
+	{% endfor %}
