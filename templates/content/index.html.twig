@@ -7,10 +7,16 @@
 	{% for article in articles %}
 		<section>
 			<h2>{{ article.title }}</h2>
-@@ -20,7 +16,6 @@
+			<p>{{ article.content }}</p>
+			{% if article.author %}
+				<p class="article_author">
+					Auteur:
+					{{ article.author.name }}
+					{{ article.author.firstname }}
 				</p>
 			{% endif %}
 			<div class="action_button_container">
 			</div>
 		</section>
 	{% endfor %}
+{% endblock %}
