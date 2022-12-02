@@ -4,20 +4,42 @@
 {% endblock %}
 
 {% block body %}
+{{ form(form), {'attr': {'class': 'ProductFilterType'}})}}
 	<h1>Liste des produits</h1>
+	<h2>Trier par :</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Prix</th>
+				<th>Catégorie</th>
+				<th>Vendeur</th>
+				<th>Date de création</th>
+				 </thead>
+        <tbody>
+            </tr>
+        </thead>
 	{% for product in products %}
-		<section>
-			<h2>{{ product.title }}</h2>
-			<p>{{ product.description }}</p>
-			<p>Prix:
+		<tr>
+			<td>{{ product.title }}</td>
+			<td>{{ product.description }}</td>
+			<td>
 				{{ product.price }}
-				€</p>
-			<p>Catégorie:
-				{{ product.category.name }}</p>
-			<p>Vendeur :
+				€</td>
+			<td>
+				{{ product.category.name }}</td>
+			<td>
 				{{ product.seller.name }}
-				{{ product.seller.firstname }}</p>
-		</section>
+				{{ product.seller.firstname }}</td>
+			<td>
+			{{ product.createdAt|date('d/m/Y') }}
+			</td>
+		</tr>
 		<a href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
 	{% endfor %}
 {% endblock %}
+
+
+    

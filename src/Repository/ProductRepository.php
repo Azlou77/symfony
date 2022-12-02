@@ -39,7 +39,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByCreatedDate(int $limit, int $seller = null, int $category = null): array
+    public function findByCreatedDate(int $limit, int $seller = null, int $category = null ): array
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -51,6 +51,7 @@ class ProductRepository extends ServiceEntityRepository
             $qb->andWhere('p.category = :category')
                 ->setParameter('category', $category);
         }
+       
         $qb->orderBy('p.createdAt', 'DESC')
             ->setMaxResults($limit);
 

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductFilterType;
 use App\Repository\ArticleRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/')]
 class ContentController extends AbstractController
@@ -33,6 +35,19 @@ class ContentController extends AbstractController
             'products' => $products,
         ]);
     }
+    
+    public function FilterProducts(): Response
+    {
+            $productsFilter= new ProductFilterType();
+        
+            $form = $this->createForm(ProductFilterType::class, $productsFilter);
+    
+            return $this->renderForm('/content/products.html.twig', [
+                'form' => $form,
+
+        ]);
+    }
+
 
     #[Route('/product/{id}', name: 'app_product_show')]
     public function getProduct(Product $product): Response
@@ -43,3 +58,5 @@ class ContentController extends AbstractController
     }
 
 }
+
+

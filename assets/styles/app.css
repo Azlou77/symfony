@@ -62,3 +62,11 @@ form input {
     color: white;
     cursor: pointer;
 }
+content_container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}

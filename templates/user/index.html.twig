@@ -15,15 +15,13 @@
             <section>
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.content }}</p>
+                <p>{{ article.createdAt|date('d/m/Y') }}</p>
                 {% if article.author %}
                 <p class="article_author">
                 Auteur: {{ article.author.name }} {{ article.author.firstname }}
                 </p>
                 {% endif %}
-            <div class="action_button_container">
-                <a class="action_button" href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                <a class="action_button" href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-            </div>
+          
             </section>
         {% endfor %}  
     </div>
@@ -36,6 +34,7 @@
             <p>Prix: {{ product.price }} €</p>
             <p>Catégorie: {{ product.category.name }}</p>
             <p>Vendeur : {{ product.seller.name }} {{ product.seller.firstname }}</p>
+            <p>Date de création{{ product.createdAt|date('d/m/Y') }}</p>
         </section>
           
         {% endfor %}
