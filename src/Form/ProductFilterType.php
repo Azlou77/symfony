@@ -16,7 +16,13 @@ class ProductFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        
+            ->add('p', TextType::class, [
+                'label' => 'Recherche',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Rechercher un produit',
+                ],
+            ])  
             ->add ('category', EntityType::class, [
                 'class' => Category::class,
                 'required' => false,
@@ -43,7 +49,7 @@ class ProductFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-       
+            'data_class' => Product::class,
     
         ]);
     }

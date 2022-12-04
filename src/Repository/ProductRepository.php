@@ -39,7 +39,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByCreatedDate(int $limit, int $seller = null, int $category = null ): array
+    public function findByCreatedDate(int $limit, int $seller = null ): array
     {
         $qb = $this->createQueryBuilder('p');
 

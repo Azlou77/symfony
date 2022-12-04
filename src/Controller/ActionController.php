@@ -7,7 +7,9 @@ use App\Entity\Article;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Form\ArticleType;
+use App\Form\ArticleFilterType;
 use App\Form\ProductType;
+use App\Form\ProductFilterType;
 use App\Form\CategoryType;
 use App\Repository\ArticleRepository;
 use App\Repository\ProductRepository;
@@ -68,6 +70,7 @@ class ActionController extends AbstractController
 
         return $this->redirectToRoute('app_products');
     }
+
 
     // Articles
     #[Route('/article/create', name: 'app_article_create', methods: ['GET', 'POST'])]

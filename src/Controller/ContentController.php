@@ -30,16 +30,23 @@ class ContentController extends AbstractController
     public function getProducts(ProductRepository $productRepository): Response
     {
        
-        $data = new Product();
-        $form = $this->createForm(ProductFilterType::class, $data);
         $products = $productRepository->findALL();
         return $this->render('content/products.html.twig', [
             'products' => $products,
-            'form' => $form->createView(),
         ]);
     }
 
-
+     
+    // Display by Seller
+    #[Route('/products/{seller}', name: 'app_products_seller')]
+    public function seller(ProductRepository $productRepository, $seller): Response
+    {
+        $products = $productRepository->findByCreatedDate(5);
+        return $this->render('content/products.html.twig', [
+            'products' => $products,
+        ]);
+    }
+ 
  
     #[Route('/product/{id}', name: 'app_product_show')]
     public function getProduct(Product $product): Response
