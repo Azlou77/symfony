@@ -47,10 +47,10 @@ class ProductRepository extends ServiceEntityRepository
             $qb->andWhere('p.seller = :seller')
                 ->setParameter('seller', $seller);
         }
-        if ($category) {
-            $qb->andWhere('p.category = :category')
-                ->setParameter('category', $category);
-        }
+        // if ($category) {
+        //     $qb->andWhere('p.category = :category')
+        //         ->setParameter('category', $category);
+        // }
        
         $qb->orderBy('p.createdAt', 'DESC')
             ->setMaxResults($limit);

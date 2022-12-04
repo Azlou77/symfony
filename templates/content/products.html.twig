@@ -7,6 +7,8 @@
 	<h1>Liste des produits</h1>
 	<h2>Trier par :</h2>
 
+
+
     <table class="table">
         <thead>
             <tr>
@@ -21,6 +23,7 @@
             </tr>
         </thead>
 	{% for product in products %}
+	
 		<tr>
 			<td>{{ product.title }}</td>
 			<td>{{ product.description }}</td>

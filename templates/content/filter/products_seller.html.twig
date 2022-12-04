@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits par vendeurs{% endblock %}
+
+{% block body %}
+
+{% for seller in sellers %}
+
+{% for product in seller.products %}
+
+{{ product.name }}
+
+{% endfor %}
+
+{% endfor %}
+
+{% endblock %}
+
+
+    
