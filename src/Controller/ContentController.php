@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\User;
+use App\Entity\UserRepository;
 use App\Entity\Product;
 use App\Form\ProductFilterType;
 use App\Repository\ArticleRepository;
@@ -30,19 +31,18 @@ class ContentController extends AbstractController
     public function getProducts(ProductRepository $productRepository): Response
     {
        
-        $products = $productRepository->findALL();
+        $products = $productRepository->findAll();
         return $this->render('content/products.html.twig', [
             'products' => $products,
         ]);
     }
 
-     
-    // Display by Seller
-    #[Route('/products/{seller}', name: 'app_products_seller')]
-    public function seller(ProductRepository $productRepository, $seller): Response
+    //Display all Products by Seller
+    #[Route('/products/{slug}', name: 'app_products_seller')]
+    public function seller(User $user,ProductRepository $productRepository ): Response
     {
-        $products = $productRepository->findByCreatedDate(5);
-        return $this->render('content/products.html.twig', [
+        $products = $productRepository->findBySeller($user->getSlug(),4);
+        return $this->render('content/filter/products_seller.html.twig', [
             'products' => $products,
         ]);
     }

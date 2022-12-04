@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,24 +40,21 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByCreatedDate(int $limit, int $seller = null ): array
+    public function findBySeller(string $slug, int $limit = null): array
     {
         $qb = $this->createQueryBuilder('p');
-
-        if ($seller) {
-            $qb->andWhere('p.seller = :seller')
-                ->setParameter('seller', $seller);
-        }
-        // if ($category) {
-        //     $qb->andWhere('p.category = :category')
-        //         ->setParameter('category', $category);
-        // }
-       
-        $qb->orderBy('p.createdAt', 'DESC')
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('u', 'p')
+            ->from('App\Entity\Product', 'p')
+            ->join('p.seller', 'u')
+            ->where("u.slug = '$slug'")
             ->setMaxResults($limit);
-
         return $qb->getQuery()->getResult();
     }
+}
+
+
+      
 
     //    /**
     //     * @return Product[] Returns an array of Product objects
@@ -81,5 +79,7 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getQuery()
     //            ->getOneOrNullResult()
     //        ;
+    
+        
     //    }
-}
+

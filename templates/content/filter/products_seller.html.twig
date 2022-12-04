@@ -1,20 +1,33 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Produits par vendeurs{% endblock %}
-
 {% block body %}
+	<h1>Liste des produits</h1>
+	<h2>Trier par :</h2>
 
-{% for seller in sellers %}
 
-{% for product in seller.products %}
-
-{{ product.name }}
-
-{% endfor %}
-
-{% endfor %}
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+				<th>Date de création</th>
+                <th>Vendeurs</th>
+        <tbody>
+            </tr>
+        </thead>
+	
+	{% for product in products %}
+		<tr>
+			<td>{{ product.title }}</td>
+			<td>{{ product.description }}</td>
+			<td>{{ product.createdAt|date('d/m/Y') }}</td>
+            <td>{{ product.seller.fullname }}
+            </td>
+            
+			
+</tr>
+	{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
-
+    
 
     

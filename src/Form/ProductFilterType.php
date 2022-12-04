@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Data\SearchData;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
@@ -48,9 +49,8 @@ class ProductFilterType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Product::class,
     
-        ]);
+    
+     
     }
 }
